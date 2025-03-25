@@ -12,9 +12,9 @@ namespace Tests
         [Fact]
         public void Test()
         {
-            /*
-            Data ball = new Ball(10, 20, 30);
-            */
+
+            Ball ball = new(10, 20, 30);
+            
             Assert.Equal(1, 1);
         }
         
