@@ -12,5 +12,10 @@
             Y = y;
             Radius = radius;
         }
+
+        public int getX()
+        {
+            return X;
+        }
     }
 }
