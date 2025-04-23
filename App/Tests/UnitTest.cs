@@ -18,6 +18,10 @@ namespace Tests
         [Fact]
         public void logicTest()
         {
+
+            Ball ball = new(10, 20, 30);
+            
+            Assert.Equal(1, 1);
             Logic.Logic logic = new Logic.Logic();
             Assert.True(logic.isLogicAvailable());
         }
