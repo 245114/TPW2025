@@ -3,13 +3,52 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:View"
+        xmlns:vm="clr-namespace:ViewModel;assembly=ViewModel"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.DataContext>
+        <vm:ViewModel />
+    </Window.DataContext>
+    
     <Grid>
-        <Canvas Background="#FF155843">
-            <Ellipse Width="40" Height="40" 
-                     Fill="Red" Canvas.Left="560" Canvas.Top="216"/>
-        </Canvas>
+        <Canvas x:Name="BallCanvas" Background="#FF155843"/>
+        
+
+        <ItemsControl ItemsSource="{Binding Balls}">
+            <!--
+            <ItemsControl.Resources>
+                <Style TargetType="Canvas">
+                    <Setter Property="Width" Value="{Binding CanvasWidth}"/>
+                    <Setter Property="Height" Value="{Binding CanvasHeight}"/>
+                </Style>
+            </ItemsControl.Resources>
+            -->
+
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas Width="850" Height="400" Background="#FF155843"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+
+            <ItemsControl.ItemContainerStyle>
+                <Style TargetType="ContentPresenter">
+                    <Setter Property="Canvas.Left" Value="{Binding X}" />
+                    <Setter Property="Canvas.Top" Value="{Binding Y}" />
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Ellipse Width="{Binding Radius}"
+                     Height="{Binding Radius}"
+                     Fill="MediumPurple"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        
+        <TextBox x:Name="BallCount" Height="40" TextWrapping="Wrap" Text="{Binding Count}" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
+        <Button Content="Start" Height="40" Width="88" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="149,10,0,0" Command="{Binding StartCommand}"/>
     </Grid>
 </Window>
+    
