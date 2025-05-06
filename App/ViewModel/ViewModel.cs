@@ -24,6 +24,7 @@ namespace ViewModel
             StartCommand = new Commands(Start);
             CanvasHeight = _model.canvasHeight;
             CanvasWidth = _model.canvasWidth;
+            
         }
 
         private int _count;

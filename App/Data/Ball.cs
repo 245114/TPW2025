@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace Data
 {
-    public class Ball : BallInterface, INotifyPropertyChanged
+    public class Ball : DataAPI, INotifyPropertyChanged
     {
         private double _x;
         public double X

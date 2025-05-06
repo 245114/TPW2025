@@ -4,14 +4,14 @@ using System.Drawing;
 using Data;
 using System.Timers;
 using Timer = System.Timers.Timer;
-using System.Diagnostics;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace Logic
 {
-    public class BallLogic : BallLogicInterface
+    public class BallLogic : LogicAPI
     {
-        private readonly List<BallInterface> balls = new();
+        private readonly List<DataAPI> balls = new();
         private readonly Random random = new();
         public ObservableCollection<Ball> BallsCollection;
 
@@ -47,7 +47,7 @@ namespace Logic
             timer.Start();
         }
 
-        public IReadOnlyList<BallInterface> Balls => balls.AsReadOnly();
+        public IReadOnlyList<DataAPI> Balls => balls.AsReadOnly();
 
         public void GenerateBalls(int count)
         {
@@ -79,6 +79,6 @@ namespace Logic
             BallsUpdated?.Invoke(this, balls);
         }
 
-        public event EventHandler<IEnumerable<BallInterface>> BallsUpdated;
+        public event EventHandler<IEnumerable<DataAPI>> BallsUpdated;
     }
 }
