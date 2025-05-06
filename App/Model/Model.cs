@@ -28,15 +28,20 @@ namespace Model
 
             for (int i = 0; i < count; i++)
             {
-                
+
                 Ball ball = new(random.NextDouble() * canvasWidth, random.NextDouble() * canvasHeight, 20,
                                 random.NextDouble() * 5 - 2.5, random.NextDouble() * 5 - 2.5);
                 Balls.Add(ball);
                 _logic.AddBallToCollection(ball);
-                
+
                 //_logic.GenerateBalls(i);
                 _logic.UpdatePositions();
             }
+        }
+
+        public void SetCanvasSize(int width, int height)
+        {
+            _logic.SetCanvasSize(width, height);
         }
     }
 }

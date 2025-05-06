@@ -17,10 +17,13 @@ namespace Logic
 
         private readonly Timer timer;
 
-        private readonly double _width;
-        private readonly double _height;
+        private int _width;
+        private int _height;
 
-        public BallLogic(double width, double height)
+        public int CanvasWidth { get; set; } = 800;
+        public int CanvasHeight { get; set; } = 450;
+
+        public BallLogic(int width, int height)
         {
             _width = width;
             _height = height;
@@ -35,6 +38,12 @@ namespace Logic
         public void AddBallToCollection(Ball ball)
         {
             BallsCollection.Add(ball);
+        }
+
+        public void SetCanvasSize(int width, int height)
+        {
+            _width = width;
+            _height = height;
         }
 
         private void TimerElapsed(object sender, ElapsedEventArgs e)
@@ -60,6 +69,7 @@ namespace Logic
                 double vy = random.NextDouble() * 5 - 2.5;
 
                 balls.Add(new Ball(x, y, 20, vx, vy));
+                
             }
         }
 

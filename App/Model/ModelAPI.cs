@@ -9,5 +9,6 @@ namespace Model
     public interface ModelAPI
     {
         public void DrawBalls(int count);
+        public void SetCanvasSize(int width, int height);
     }
 }

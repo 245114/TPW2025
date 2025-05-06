@@ -9,5 +9,6 @@ namespace Logic
         event EventHandler<IEnumerable<DataAPI>> BallsUpdated;
         IReadOnlyList<DataAPI> Balls { get; }
         void AddBallToCollection(Ball ball);
+        void SetCanvasSize(int width, int height);
     }
 }

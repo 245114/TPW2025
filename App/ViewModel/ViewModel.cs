@@ -15,15 +15,14 @@ namespace ViewModel
         public ICommand StartCommand { get; set; }
         private Model.Model _model;
 
-        public int CanvasWidth { get; } = 800;
-        public int CanvasHeight { get; } = 450;
+        public int CanvasWidth { get; private set; } = 800;
+        public int CanvasHeight { get; private set; } = 450;
 
         public ViewModel()
         {
             _model = new Model.Model();
             StartCommand = new Commands(Start);
-            CanvasHeight = _model.canvasHeight;
-            CanvasWidth = _model.canvasWidth;
+            _model.SetCanvasSize(CanvasWidth, CanvasHeight);
             
         }
 
@@ -39,11 +38,9 @@ namespace ViewModel
         }
 
         public ObservableCollection<Ball> Balls => _model.Balls;
-
         private void Start()
         {
             _model.DrawBalls(Count);
-            
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
