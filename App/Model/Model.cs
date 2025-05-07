@@ -9,7 +9,9 @@ namespace Model
 {
     public class Model : ModelAPI
     {
-        public ObservableCollection<Ball> Balls { get; set; }
+        // public ObservableCollection<Ball> Balls { get; set; }
+        public ObservableCollection<Ball> Balls => _logic.BallsCollection;
+
         public int canvasWidth { get; } = 800;
         public int canvasHeight { get; } = 450;
 
@@ -17,15 +19,17 @@ namespace Model
 
         public Model()
         {
-            Balls = new ObservableCollection<Ball>();
+            //Balls = new ObservableCollection<Ball>();
+
             _logic = new BallLogic(canvasWidth, canvasHeight);
         }
 
         public void DrawBalls(int count)
         {
-            Balls.Clear();
-            var random = new Random();
-
+            //Balls.Clear();
+            //var random = new Random();
+            _logic.GenerateBalls(count);
+            /*
             for (int i = 0; i < count; i++)
             {
 
@@ -37,6 +41,7 @@ namespace Model
                 //_logic.GenerateBalls(i);
                 _logic.UpdatePositions();
             }
+            */
         }
 
         public void SetCanvasSize(int width, int height)

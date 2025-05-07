@@ -1,4 +1,5 @@
-﻿using Data;
+﻿using System.Collections.ObjectModel;
+using Data;
 
 namespace Logic
 {
@@ -10,5 +11,7 @@ namespace Logic
         IReadOnlyList<DataAPI> Balls { get; }
         void AddBallToCollection(Ball ball);
         void SetCanvasSize(int width, int height);
+        ObservableCollection<Ball> BallsCollection { get; }
+
     }
 }

@@ -13,7 +13,8 @@ namespace Logic
     {
         private readonly List<DataAPI> balls = new();
         private readonly Random random = new();
-        public ObservableCollection<Ball> BallsCollection;
+        public ObservableCollection<Ball> BallsCollection { get; private set; }
+
 
         private readonly Timer timer;
 
@@ -57,21 +58,21 @@ namespace Logic
         }
 
         public IReadOnlyList<DataAPI> Balls => balls.AsReadOnly();
-
+        
         public void GenerateBalls(int count)
         {
             balls.Clear();
             for (int i = 0; i < count; i++)
             {
-                double x = random.NextDouble() * (_width - 40);
-                double y = random.NextDouble() * (_height - 40);
-                double vx = random.NextDouble() * 5 - 2.5;
-                double vy = random.NextDouble() * 5 - 2.5;
+                Ball ball = new(random.NextDouble() * _width, random.NextDouble() * _height, 20,
+                                                random.NextDouble() * 5 - 2.5, random.NextDouble() * 5 - 2.5);
+                AddBallToCollection(ball);
+                UpdatePositions();
+                Debug.WriteLine("Hej");
 
-                balls.Add(new Ball(x, y, 20, vx, vy));
-                
             }
         }
+        
 
         public void UpdatePositions()
         {
