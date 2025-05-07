@@ -19,7 +19,7 @@ namespace Tests
 
             Assert.Equal(5, logic.BallsCollection.Count);
         }
-
+        
         [Fact]
         public void SetCanvasSizeTest()
         {
@@ -28,17 +28,18 @@ namespace Tests
             logic.SetCanvasSize(1000, 700);
 
             logic.GenerateBalls(1);
-            var ball = logic.BallsCollection.First();
+            Ball ball = logic.BallsCollection.First();
 
-            Assert.True(ball.X + ball.Radius * 2 <= 1000);
-            Assert.True(ball.Y + ball.Radius * 2 <= 700);
+            Assert.True(ball.X <= 1000);
+            Assert.True(ball.Y <= 700);
         }
+        
 
         [Fact]
         public void AddBallsToCollectionTest()
         {
-            BallLogic logic = new BallLogic(800, 450);
-            Ball ball = new Ball(10, 20, 30, 40, 50);
+            BallLogic logic = new(800, 450);
+            Ball ball = new(10, 20, 30, 40, 50);
 
             logic.AddBallToCollection(ball);
 

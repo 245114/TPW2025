@@ -64,12 +64,9 @@ namespace Logic
             balls.Clear();
             for (int i = 0; i < count; i++)
             {
-                Ball ball = new(random.NextDouble() * _width, random.NextDouble() * _height, 20,
-                                                random.NextDouble() * 5 - 2.5, random.NextDouble() * 5 - 2.5);
+                Ball ball = new(random.NextDouble() * _width, random.NextDouble() * _height, 20, random.NextDouble() * 5 - 2.5, random.NextDouble() * 5 - 2.5);
                 AddBallToCollection(ball);
                 UpdatePositions();
-                Debug.WriteLine("Hej");
-
             }
         }
         

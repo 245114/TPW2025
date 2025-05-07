@@ -26,7 +26,7 @@
 
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <Canvas Width="{Binding CanvasWidth}" Height="{Binding CanvasHeight}" Background="#FF155843"/>
+                    <Canvas Width="{Binding CanvasWidth, RelativeSource={RelativeSource AncestorType=Window}}" Height="{Binding CanvasHeight, RelativeSource={RelativeSource AncestorType=Window}}" Background="#FF155843"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
 
