@@ -39,7 +39,7 @@ namespace Tests
         public void AddBallsToCollectionTest()
         {
             BallLogic logic = new(800, 450);
-            Ball ball = new(10, 20, 30, 40, 50);
+            Ball ball = new(10, 20, 30, 40, 50, 60, "#ffffff");
 
             logic.AddBallToCollection(ball);
 
@@ -50,7 +50,7 @@ namespace Tests
         public void UpdatePositionsTest()
         {
             BallLogic logic = new BallLogic(800, 450);
-            Ball ball = new Ball(100, 100, 1, 2, 3);
+            Ball ball = new Ball(100, 100, 1, 2, 3, 4, "#ffffff");
             logic.AddBallToCollection(ball);
 
             double oldX = ball.X;
@@ -66,7 +66,7 @@ namespace Tests
         public void UpdatePositionsWallTest()
         {
             BallLogic logic = new BallLogic(100, 100);
-            Ball ball = new Ball(95, 50, 5, 5, 0);
+            Ball ball = new Ball(95, 50, 5, 5, 0, 60, "#ffffff");
             logic.AddBallToCollection(ball);
 
             logic.UpdatePositions();

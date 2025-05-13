@@ -7,12 +7,11 @@ namespace Tests
 
     public class DataTest
     {
-        
 
         [Fact]
         public void ballGetterTest()
         {
-            Ball ball = new(10, 20, 30, 40, 50);
+            Ball ball = new(10, 20, 30, 40, 50, 60, "#ffffff");
 
             Assert.Equal(10, ball.X);
             Assert.Equal(20, ball.Y);
@@ -24,7 +23,7 @@ namespace Tests
         [Fact]
         public void BallSetterTest()
         {
-            Ball ball = new(10, 20, 30, 40, 50);
+            Ball ball = new(10, 20, 30, 40, 50, 60, "#ffffff");
 
             ball.X = 1;
             ball.Y = 2;

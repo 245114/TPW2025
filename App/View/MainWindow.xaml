@@ -12,18 +12,9 @@
     
     <Grid>
         <Canvas x:Name="BallCanvas" Background="#FF155843"/>
-        
+
 
         <ItemsControl ItemsSource="{Binding Balls}">
-            <!--
-            <ItemsControl.Resources>
-                <Style TargetType="Canvas">
-                    <Setter Property="Width" Value="{Binding CanvasWidth}"/>
-                    <Setter Property="Height" Value="{Binding CanvasHeight}"/>
-                </Style>
-            </ItemsControl.Resources>
-            -->
-
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Canvas Width="{Binding CanvasWidth, RelativeSource={RelativeSource AncestorType=Window}}" Height="{Binding CanvasHeight, RelativeSource={RelativeSource AncestorType=Window}}" Background="#FF155843"/>
@@ -42,7 +33,7 @@
                 <DataTemplate>
                     <Ellipse Width="{Binding Radius}"
                      Height="{Binding Radius}"
-                     Fill="MediumPurple"/>
+                     Fill="{Binding Color}"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

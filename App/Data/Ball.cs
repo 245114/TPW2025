@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 
 namespace Data
@@ -37,13 +38,19 @@ namespace Data
         public double VelocityX { get; set; }
         public double VelocityY { get; set; }
 
-        public Ball(double x, double y, double radius, double velocityX, double velocityY)
+        public double Mass { get; set; }
+
+        public string Color { get; set; }
+
+        public Ball(double x, double y, double radius, double velocityX, double velocityY, double mass, string color)
         {
             X = x;
             Y = y;
             Radius = radius;
             VelocityX = velocityX;
             VelocityY = velocityY;
+            Mass = mass;
+            Color = color;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
