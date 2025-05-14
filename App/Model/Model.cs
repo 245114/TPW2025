@@ -11,8 +11,8 @@ namespace Model
     {
         public ObservableCollection<Ball> Balls => _logic.BallsCollection;
 
-        public int canvasWidth { get; } = 800;
-        public int canvasHeight { get; } = 450;
+        public int canvasWidth { get; } = 1300;
+        public int canvasHeight { get; } = 800;
 
         private readonly LogicAPI _logic;
 

@@ -36,8 +36,6 @@ namespace Tests
             Assert.Equal(3, ball.Radius);
             Assert.Equal(4, ball.VelocityX);
             Assert.Equal(5, ball.VelocityY);
-
         }
-        
     }
 }

@@ -11,6 +11,8 @@ namespace Logic
 {
     public class BallLogic : LogicAPI
     {
+        private readonly object _lock = new();
+
         private readonly List<DataAPI> balls = new();
         private readonly Random random = new();
         public ObservableCollection<Ball> BallsCollection { get; private set; }
@@ -21,8 +23,6 @@ namespace Logic
         private int _width;
         private int _height;
 
-        public int CanvasWidth { get; set; } = 800;
-        public int CanvasHeight { get; set; } = 450;
 
         public BallLogic(int width, int height)
         {
@@ -49,7 +49,10 @@ namespace Logic
 
         private void TimerElapsed(object sender, ElapsedEventArgs e)
         {
-            UpdatePositions();
+            lock (_lock)
+            {
+                UpdatePositions();
+            }
         }
 
         public void StartTimer()
@@ -61,80 +64,91 @@ namespace Logic
 
         public void GenerateBalls(int count)
         {
-            balls.Clear();
-            for (int i = 0; i < count; i++)
+            lock (_lock)
             {
-                Ball ball = new(random.NextDouble() * _width, random.NextDouble() * _height, 20, random.NextDouble() * 5 - 2.5, random.NextDouble() * 5 - 2.5, random.NextDouble() * 3.5 + 0.5, $"#{random.Next(0x1000000):X6}");
-                AddBallToCollection(ball);
-                UpdatePositions();
+                BallsCollection.Clear();
+                balls.Clear();
+                for (int i = 0; i < count; i++)
+                {
+                    Ball ball = new(random.NextDouble() * _width, random.NextDouble() * _height, 20, random.NextDouble() * 5 - 2.5, random.NextDouble() * 5 - 2.5, random.NextDouble() * 3.5 + 0.5, $"#{random.Next(0x1000000):X6}");
+                    AddBallToCollection(ball);
+                    UpdatePositions();
+                }
             }
         }
 
 
         public void UpdatePositions()
         {
-
-            foreach (var ball in BallsCollection)
+            lock (_lock)
             {
-                ball.X += ball.VelocityX;
-                ball.Y += ball.VelocityY;
+                foreach (var ball in BallsCollection)
+                {
+                    ball.X += ball.VelocityX;
+                    ball.Y += ball.VelocityY;
 
-                if (ball.X + ball.Radius < 0 || ball.X + ball.Radius * 2 > _width)
-                    ball.VelocityX *= -1;
+                    if (ball.X + ball.Radius < 20 || ball.X + ball.Radius * 2 > _width - 10)
+                        ball.VelocityX *= -1;
 
-                if (ball.Y + ball.Radius * 2 < 0 + 40 || ball.Y + ball.Radius * 2 > _height)
-                    ball.VelocityY *= -1;
+                    if (ball.Y + ball.Radius * 2 < 40 || ball.Y + ball.Radius * 2 > _height - 20)
+                        ball.VelocityY *= -1;
+                }
+                Collisions();
+                BallsUpdated?.Invoke(this, balls);
             }
-            Collisions();
-            BallsUpdated?.Invoke(this, balls);
         }
 
         private void Collisions()
         {
-            for (int i = 0; i < BallsCollection.Count; i++)
+            lock (_lock)
             {
-                for (int j = i + 1; j < BallsCollection.Count; j++)
+                for (int i = 0; i < BallsCollection.Count; i++)
                 {
-                    Ball a = BallsCollection[i];
-                    Ball b = BallsCollection[j];
-
-                    double distanceX = b.X - a.X;
-                    double distanceY = b.Y - a.Y;
-                    double distance = Math.Sqrt(distanceX * distanceX + distanceY * distanceY);
-                    double minDist = a.Radius / 2 + b.Radius / 2;
-
-                    if (distance < minDist)
+                    for (int j = i + 1; j < BallsCollection.Count; j++)
                     {
-                        if (distance == 0) distance = 0.01;
+                        Ball a = BallsCollection[i];
+                        Ball b = BallsCollection[j];
 
-                        double nx = distanceX / distance;
-                        double ny = distanceY / distance;
+                        double distanceX = b.X - a.X;
+                        double distanceY = b.Y - a.Y;
+                        double distance = Math.Sqrt(distanceX * distanceX + distanceY * distanceY);
+                        double minDist = a.Radius / 2 + b.Radius / 2;
 
-                        double tx = -ny;
-                        double ty = nx;
+                        if (distance < minDist)
+                        {
+                            if (distance == 0) distance = 0.01;
 
-                        double overlap = 0.5 * (minDist - distance + 0.1);
-                        a.X -= overlap * nx;
-                        a.Y -= overlap * ny;
-                        b.X += overlap * nx;
-                        b.Y += overlap * ny;
+                            double nx = distanceX / distance;
+                            double ny = distanceY / distance;
 
-                        double velocityTanA = a.VelocityX * tx + a.VelocityY * ty;
-                        double velocityTanB = b.VelocityX * tx + b.VelocityY * ty;
+                            double tx = -ny;
+                            double ty = nx;
 
-                        double velocityNormA = a.VelocityX * nx + a.VelocityY * ny;
-                        double velocityNormB = b.VelocityX * nx + b.VelocityY * ny;
+                            /*
+                            double overlap = 0.5 * (minDist - distance + 0.1);
+                            a.X -= overlap * nx;
+                            a.Y -= overlap * ny;
+                            b.X += overlap * nx;
+                            b.Y += overlap * ny;
+                            */
 
-                        double m1 = a.Mass;
-                        double m2 = b.Mass;
+                            double velocityTanA = a.VelocityX * tx + a.VelocityY * ty;
+                            double velocityTanB = b.VelocityX * tx + b.VelocityY * ty;
 
-                        double newVelocityA = (velocityNormA * (m1 - m2) + 2 * m2 * velocityNormB) / (m1 + m2);
-                        double newVelocityB = (velocityNormB * (m2 - m1) + 2 * m1 * velocityNormA) / (m1 + m2);
+                            double velocityNormA = a.VelocityX * nx + a.VelocityY * ny;
+                            double velocityNormB = b.VelocityX * nx + b.VelocityY * ny;
 
-                        a.VelocityX = tx * velocityTanA + nx * newVelocityA;
-                        a.VelocityY = ty * velocityTanA + ny * newVelocityA;
-                        b.VelocityX = tx * velocityTanB + nx * newVelocityB;
-                        b.VelocityY = ty * velocityTanB + ny * newVelocityB;
+                            double m1 = a.Mass;
+                            double m2 = b.Mass;
+
+                            double newVelocityA = (velocityNormA * (m1 - m2) + 2 * m2 * velocityNormB) / (m1 + m2);
+                            double newVelocityB = (velocityNormB * (m2 - m1) + 2 * m1 * velocityNormA) / (m1 + m2);
+
+                            a.VelocityX = tx * velocityTanA + nx * newVelocityA;
+                            a.VelocityY = ty * velocityTanA + ny * newVelocityA;
+                            b.VelocityX = tx * velocityTanB + nx * newVelocityB;
+                            b.VelocityY = ty * velocityTanB + ny * newVelocityB;
+                        }
                     }
                 }
             }
