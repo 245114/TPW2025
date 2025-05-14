@@ -18,7 +18,7 @@ namespace ViewModel
         public int CanvasWidth { get; private set; } = 800;
         public int CanvasHeight { get; private set; } = 450;
 
-        public ViewModel()
+        public ViewModel(ModelAPI model)
         {
             _model = new Model.Model();
             StartCommand = new Commands(Start);

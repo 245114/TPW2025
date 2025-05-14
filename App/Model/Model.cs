@@ -16,9 +16,13 @@ namespace Model
 
         private readonly LogicAPI _logic;
 
-        public Model()
+        public Model(LogicAPI logic)
         {
             _logic = new BallLogic(canvasWidth, canvasHeight);
+        }
+
+        public Model()
+        {
         }
 
         public void DrawBalls(int count)
