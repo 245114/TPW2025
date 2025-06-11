@@ -101,26 +101,26 @@ namespace Logic
                 {
                     ball.move(deltaTime);
 
-                    if (ball.X - ball.Radius / 2 <= 0)      //Lewa - dobrze
+                    if (ball.X - ball.Radius / 2 <= 0)      
                     {
                         ball.VelocityX = Math.Abs(ball.VelocityX);
                         ball.X = ball.Radius / 2;
                         logger.BallCollisionWithWall(ball, "left");
                     }
-                    else if (ball.X + ball.Radius / 2  >= _width) //Prawa - źle
+                    else if (ball.X + ball.Radius / 2  >= _width) 
                     {
                         ball.X = _width - ball.Radius / 2;
                         ball.VelocityX = -ball.VelocityX;
                         logger.BallCollisionWithWall(ball, "right");
                     }
 
-                    if (ball.Y - ball.Radius / 2 <= 0)  //Góra - dobrze
+                    if (ball.Y - ball.Radius / 2 <= 0)  
                     {
                         ball.VelocityY = Math.Abs(ball.VelocityY);
                         ball.Y = ball.Radius / 2;
                         logger.BallCollisionWithWall(ball, "up");
                     }
-                    else if (ball.Y + ball.Radius / 2 >= _height) //Dół - źle
+                    else if (ball.Y + ball.Radius / 2 >= _height)
                     {
                         ball.VelocityY = -Math.Abs(ball.VelocityY);
                         ball.Y = _height - ball.Radius / 2;

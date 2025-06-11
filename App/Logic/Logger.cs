@@ -11,7 +11,7 @@ using Data;
 
 namespace Logic
 {
-    internal class Logger
+    public class Logger
     {
         private string colorName;
         private readonly Random random = new();
@@ -32,6 +32,7 @@ namespace Logic
         {
             running = false;
             writerThread?.Join();
+            Environment.Exit(0);
         }
 
         public void BallConstructor(Ball ball)
@@ -46,7 +47,7 @@ namespace Logic
 
         public void BallCollisionWithWall(Ball ball, String side)
         {
-            var timestamp = DateTime.Now.ToString("HH:mm:ss");
+            var timestamp = DateTime.Now.ToString("HH:mm:ss::ff");
             //Debug.Print("Ten kolor to: " + FindColour(Color.FromArgb(255, 255, 0, 0), out colorName));
             string log = "Error";
             switch (side)
@@ -73,8 +74,9 @@ namespace Logic
         public void BallCollisionWithBall(Ball ballA, Ball ballB)
         {
             var timestamp = DateTime.Now.ToString("HH:mm:ss");
-            string log = $"[{timestamp}]:Collision with ball detected:\n\t\tBall A\n\t\tX: {ballA.X:F2}\n\t\tY: {ballA.Y:F2}\n\t\tRadius: {ballA.Radius:F2}\n\t\tVelocity X: {ballA.VelocityX:F2}\n\t\tVelocity Y: {ballA.VelocityY:F2}\n\t\tColor: {ballA.Color}" +
-                $"\n\n\t\tBall B\n\t\tX: {ballB.X:F2}\n\t\tY: {ballB.Y:F2}\n\t\tRadius: {ballB.Radius:F2}\n\t\tVelocity X: {ballB.VelocityX:F2}\n\t\tVelocity Y: {ballB.VelocityY:F2}\n\t\tColor: {ballB.Color}";
+            string log = $"[{timestamp}]:Collision with ball detected:\n" +
+                         $"\n\t\tBall A\n\t\tX: {ballA.X:F2}\n\t\tY: {ballA.Y:F2}\n\t\tRadius: {ballA.Radius:F2}\n\t\tVelocity X: {ballA.VelocityX:F2}\n\t\tVelocity Y: {ballA.VelocityY:F2}\n\t\tColor: {ballA.Color}" +
+                         $"\n\n\t\tBall B\n\t\tX: {ballB.X:F2}\n\t\tY: {ballB.Y:F2}\n\t\tRadius: {ballB.Radius:F2}\n\t\tVelocity X: {ballB.VelocityX:F2}\n\t\tVelocity Y: {ballB.VelocityY:F2}\n\t\tColor: {ballB.Color}";
             lock (buffer)
             {
                 buffer.Enqueue(log);
