@@ -17,15 +17,20 @@
         <ItemsControl ItemsSource="{Binding Balls}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <Canvas Width="{Binding CanvasWidth}" Height="{Binding CanvasHeight}" Background="#FF155843"/>
+                    <Canvas
+                Width="{Binding DataContext.CanvasWidth, 
+                                RelativeSource={RelativeSource AncestorType=Window}}"
+                Height="{Binding DataContext.CanvasHeight,
+                                 RelativeSource={RelativeSource AncestorType=Window}}"
+                Background="#FF155843"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
 
 
             <ItemsControl.ItemContainerStyle>
                 <Style TargetType="ContentPresenter">
-                    <Setter Property="Canvas.Left" Value="{Binding X}" />
-                    <Setter Property="Canvas.Top" Value="{Binding Y}" />
+                    <Setter Property="Canvas.Left" Value="{Binding CanvasLeft}" />
+                    <Setter Property="Canvas.Top" Value="{Binding CanvasTop}" />
                 </Style>
             </ItemsControl.ItemContainerStyle>
 
@@ -40,6 +45,7 @@
         
         <TextBox x:Name="BallCount" Height="40" TextWrapping="Wrap" Text="{Binding Count}" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
         <Button Content="Start" Height="40" Width="88" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="149,10,0,0" Command="{Binding StartCommand}"/>
+        <Button Content="Wyjście" Height="40" Width="88" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="149,10,10,0" Command="{Binding StopCommand}"/>
     </Grid>
 </Window>
     

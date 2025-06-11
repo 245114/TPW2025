@@ -13,5 +13,6 @@ namespace Data
         double Radius { get; set; }
         double VelocityX { get; set; }
         double VelocityY { get; set; }
+        void move(double deltaTime);//double deltaTime);
     }
 }

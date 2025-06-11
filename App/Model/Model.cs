@@ -26,6 +26,11 @@ namespace Model
             _logic.GenerateBalls(count);
         }
 
+        public void StopBalls()
+        {
+            _logic.StopIt();
+        }
+
         public void SetCanvasSize(int width, int height)
         {
             _logic.SetCanvasSize(width, height);

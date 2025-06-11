@@ -16,6 +16,7 @@ namespace Data
                 {
                     _x = value;
                     OnPropertyChanged(nameof(X));
+                    OnPropertyChanged(nameof(CanvasLeft));
                 }
             }
         }
@@ -30,6 +31,7 @@ namespace Data
                 {
                     _y = value;
                     OnPropertyChanged(nameof(Y));
+                    OnPropertyChanged(nameof(CanvasTop));
                 }
             }
         }
@@ -59,5 +61,15 @@ namespace Data
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+        
+        public void move(double deltaTime)
+        {
+            this.X += this.VelocityX * deltaTime;
+            this.Y += this.VelocityY * deltaTime;
+        }
+        
+
+        public double CanvasLeft => X - Radius / 2;
+        public double CanvasTop => Y - Radius / 2;
     }
 }

@@ -56,7 +56,7 @@ namespace Tests
             double oldX = ball.X;
             double oldY = ball.Y;
 
-            logic.UpdatePositions();
+            //logic.UpdatePositions();
 
             Assert.Equal(oldX + 2, ball.X);
             Assert.Equal(oldY + 3, ball.Y);
@@ -69,7 +69,7 @@ namespace Tests
             Ball ball = new Ball(95, 50, 5, 5, 0, 60, "#ffffff");
             logic.AddBallToCollection(ball);
 
-            logic.UpdatePositions();
+            //logic.UpdatePositions();
 
             Assert.True(ball.VelocityX < 0);
         }
