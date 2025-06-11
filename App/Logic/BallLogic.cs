@@ -76,6 +76,7 @@ namespace Logic
 
         public void GenerateBalls(int count)
         {
+            SetCanvasSize(1268, 763);
             lock (_lock)
             {
                 BallsCollection.Clear();
@@ -95,7 +96,7 @@ namespace Logic
         {
             lock (_lock)
             {
-                double test = 4;
+                double test = 4; //?
                 foreach (var ball in BallsCollection)
                 {
                     ball.move(deltaTime);
@@ -106,9 +107,9 @@ namespace Logic
                         ball.X = ball.Radius / 2;
                         logger.BallCollisionWithWall(ball, "left");
                     }
-                    else if (ball.CanvasLeft + ball.Radius * 2 >= _width) //Prawa - źle
+                    else if (ball.X + ball.Radius / 2  >= _width) //Prawa - źle
                     {
-                        ball.X = _width - ball.Radius * 2;
+                        ball.X = _width - ball.Radius / 2;
                         ball.VelocityX = -ball.VelocityX;
                         logger.BallCollisionWithWall(ball, "right");
                     }
